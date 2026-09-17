@@ -1,6 +1,8 @@
-﻿const User = require("../models/user")
-const generateToken = require("../utils/generateToken")
+﻿const User = require("../models/user");
+const generateToken = require("../utils/generateToken");
 const MentorApplication = require("../models/MentorApplication");
+const cloudinary = require("../config/cloudinary");
+const streamifier = require("streamifier");
 
 // ── Register ────────────────────────────────────────────────
 const registerUser = async (req, res) => {
@@ -128,44 +130,98 @@ const getProfile = async (req, res) => {
 const updateProfile = async (req, res, next) => {
     try {
         const {
-            name, bio, location, availability, experienceLevel,
-            skills_offered, skills_wanted, socialLinks,
+            name,
+            bio,
+            location,
+            availability,
+            experienceLevel,
+            skills_offered,
+            skills_wanted,
+            socialLinks,
         } = req.body || {};
 
         const user = await User.findById(req.user._id);
+
         if (!user) {
-            return res.status(404).json({ success: false, message: "User not found" });
+            return res.status(404).json({
+                success: false,
+                message: "User not found",
+            });
         }
 
-        if (name        !== undefined) user.name            = name;
-        if (bio         !== undefined) user.bio             = bio;
-        if (location    !== undefined) user.location        = location;
-        if (availability !== undefined) user.availability   = availability;
+        if (name !== undefined) user.name = name;
+        if (bio !== undefined) user.bio = bio;
+        if (location !== undefined) user.location = location;
+        if (availability !== undefined) user.availability = availability;
         if (experienceLevel !== undefined) user.experienceLevel = experienceLevel;
-        if (skills_offered  !== undefined) user.skills_offered = JSON.parse(skills_offered);
-        if (skills_wanted   !== undefined) user.skills_wanted  = JSON.parse(skills_wanted);
-        if (socialLinks     !== undefined) user.socialLinks    = JSON.parse(socialLinks);
+
+        if (skills_offered !== undefined) {
+            user.skills_offered = JSON.parse(skills_offered);
+        }
+
+        if (skills_wanted !== undefined) {
+            user.skills_wanted = JSON.parse(skills_wanted);
+        }
+
+        if (socialLinks !== undefined) {
+            user.socialLinks = JSON.parse(socialLinks);
+        }
 
         if (req.file) {
-            console.log("UPLOADED FILE:", req.file);
-            user.profilePicture = `/uploads/${req.file.filename}`;
+            const uploadToCloudinary = () => {
+                return new Promise((resolve, reject) => {
+                    const stream = cloudinary.uploader.upload_stream(
+                        {
+                            folder: "skillsync/profile-pictures",
+                            resource_type: "image",
+                        },
+                        (error, result) => {
+                            if (error) {
+                                reject(error);
+                            } else {
+                                resolve(result);
+                            }
+                        }
+                    );
+
+                    streamifier
+                        .createReadStream(req.file.buffer)
+                        .pipe(stream);
+                });
+            };
+
+            const result = await uploadToCloudinary();
+
+            user.profilePicture = result.secure_url;
         }
 
         let completion = 0;
-        if (user.name)                completion += 10;
-        if (user.bio)                 completion += 15;
-        if (user.location)            completion += 10;
+
+        if (user.name) completion += 10;
+        if (user.bio) completion += 15;
+        if (user.location) completion += 10;
         if (user.skills_offered?.length > 0) completion += 15;
-        if (user.skills_wanted?.length  > 0) completion += 10;
-        if (user.experienceLevel)     completion += 10;
-        if (user.availability)        completion += 5;
-        if (user.profilePicture)      completion += 15;
-        if (user.socialLinks && Object.values(user.socialLinks).some(l => l)) completion += 10;
+        if (user.skills_wanted?.length > 0) completion += 10;
+        if (user.experienceLevel) completion += 10;
+        if (user.availability) completion += 5;
+        if (user.profilePicture) completion += 15;
+
+        if (
+            user.socialLinks &&
+            Object.values(user.socialLinks).some((l) => l)
+        ) {
+            completion += 10;
+        }
 
         user.completionPercentage = completion;
+
         await user.save();
 
-        res.status(200).json({ success: true, message: "Profile updated successfully", user });
+        res.status(200).json({
+            success: true,
+            message: "Profile updated successfully",
+            user,
+        });
     } catch (error) {
         console.log("UPDATE PROFILE ERROR =>", error);
         next(error);
