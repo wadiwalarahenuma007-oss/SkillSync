@@ -54,7 +54,7 @@ const Profile = () => {
 
         const fetchProfile = async () => {
             try {
-                const response = await fetch("/api/auth/profile", {
+                const response = await fetch("https://skill-sync-backend-beta.vercel.app/api/auth/profile", {
                     method: "GET",
                     credentials: "include",
                 });
@@ -267,7 +267,7 @@ const Profile = () => {
                                 setRefreshing(true);
 
                                 try {
-                                    const response = await fetch("/api/auth/profile", {
+                                    const response = await fetch("https://skill-sync-backend-beta.vercel.app/api/auth/profile", {
                                         method: "GET",
                                         credentials: "include",
                                     });
