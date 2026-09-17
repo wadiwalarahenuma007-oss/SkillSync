@@ -12,7 +12,7 @@ export const AuthProvider = ({ children }) => {
     const fetchUser = async () => {
         try {
             const res = await axios.get(
-                "https://skill-sync-swart-phi.vercel.app/api/auth/profile",
+                "https://skill-sync-backend-beta.vercel.app/api/auth/profile",
                 { withCredentials: true }
             );
             setUser(res.data.user);

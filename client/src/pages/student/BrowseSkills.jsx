@@ -216,7 +216,7 @@ const BrowseSkills = () => {
                 setError("");
 
                 const response = await axios.get(
-                    "https://skill-sync-swart-phi.vercel.app/api/skills"
+                    "https://skill-sync-backend-beta.vercel.app/api/skills"
                 );
 
                 if (response.data.success) {

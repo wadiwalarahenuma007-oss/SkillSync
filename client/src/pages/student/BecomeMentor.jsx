@@ -30,7 +30,7 @@
         setLoading(true);
 
         const res = await axios.post(
-          "https://skill-sync-swart-phi.vercel.app/api/mentor/apply",
+          "https://skill-sync-backend-beta.vercel.app/api/mentor/apply",
           {
             ...formData,
             skills: formData.skills

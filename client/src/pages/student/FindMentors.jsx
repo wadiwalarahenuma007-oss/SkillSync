@@ -94,7 +94,7 @@ const FindMentors = () => {
             setFetchLoading(true);
             setFetchError("");
             try {
-                const res = await axios.get("https://skill-sync-swart-phi.vercel.app/api/mentors", {
+                const res = await axios.get("https://skill-sync-backend-beta.vercel.app/api/mentors", {
                     withCredentials: true,
                 });
                 setMentors(res.data.mentors || []);
@@ -143,7 +143,7 @@ const FindMentors = () => {
         setSending(true);
         try {
             await axios.post(
-                "https://skill-sync-swart-phi.vercel.app/api/requests",
+                "https://skill-sync-backend-beta.vercel.app/api/requests",
                 {
                     mentorId: selectedMentor._id,
                     message: message.trim(),
@@ -166,7 +166,7 @@ const FindMentors = () => {
         if (mentor.profilePicture) {
             return mentor.profilePicture.startsWith("http")
                 ? mentor.profilePicture
-                : `https://skill-sync-swart-phi.vercel.app${mentor.profilePicture}`;
+                : `https://skill-sync-backend-beta.vercel.app${mentor.profilePicture}`;
         }
         return null;
     };

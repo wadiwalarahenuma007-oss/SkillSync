@@ -99,7 +99,7 @@ const AdminMentors = () => {
         setLoading(true);
         try {
             const { data } = await axios.get(
-                "https://skill-sync-swart-phi.vercel.app/api/admin/mentor-applications",
+                "https://skill-sync-backend-beta.vercel.app/api/admin/mentor-applications",
                 { withCredentials: true }
             );
             setApplications(data.applications || []);
@@ -126,7 +126,7 @@ const AdminMentors = () => {
             action: async () => {
                 try {
                     const { data } = await axios.put(
-                        `https://skill-sync-swart-phi.vercel.app/api/admin/mentors/${mentor.user._id}/approve`,
+                        `https://skill-sync-backend-beta.vercel.app/api/admin/mentors/${mentor.user._id}/approve`,
                         {}, { withCredentials: true }
                     );
                     showToast(data.message || "Mentor approved!", "success");
@@ -150,7 +150,7 @@ const AdminMentors = () => {
             action: async () => {
                 try {
                     const { data } = await axios.put(
-                        `https://skill-sync-swart-phi.vercel.app/api/admin/mentors/${mentor.user._id}/reject`,
+                        `https://skill-sync-backend-beta.vercel.app/api/admin/mentors/${mentor.user._id}/reject`,
                         {}, { withCredentials: true }
                     );
                     showToast(data.message || "Application rejected", "success");
@@ -174,7 +174,7 @@ const AdminMentors = () => {
             action: async () => {
                 try {
                     const { data } = await axios.put(
-                        `https://skill-sync-swart-phi.vercel.app/api/admin/mentors/${mentor.user._id}/revoke`,
+                        `https://skill-sync-backend-beta.vercel.app/api/admin/mentors/${mentor.user._id}/revoke`,
                         {}, { withCredentials: true }
                     );
                     showToast(data.message || "Mentor revoked", "success");
@@ -242,7 +242,7 @@ const AdminMentors = () => {
                                                 src={
                                                     mentor.user.profilePicture.startsWith("http")
                                                         ? mentor.user.profilePicture
-                                                        : `https://skill-sync-swart-phi.vercel.app/${mentor.user.profilePicture.replace(/^\//, "")}`
+                                                        : `https://skill-sync-backend-beta.vercel.app/${mentor.user.profilePicture.replace(/^\//, "")}`
                                                 }
                                                 alt={mentor.user?.name}
                                                 style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "50%" }}

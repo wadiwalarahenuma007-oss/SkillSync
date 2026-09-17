@@ -32,10 +32,10 @@ const StudentDashboard = () => {
     setDataLoading(true);
     try {
       const [reqRes, sessRes, mentorsRes, notifsRes] = await Promise.allSettled([
-        axios.get("https://skill-sync-swart-phi.vercel.app/api/requests/mine", { withCredentials: true }),
-        axios.get("https://skill-sync-swart-phi.vercel.app/api/sessions/mine", { withCredentials: true }),
-        axios.get("https://skill-sync-swart-phi.vercel.app/api/mentors?limit=3", { withCredentials: true }),
-        axios.get("https://skill-sync-swart-phi.vercel.app/api/notifications", { withCredentials: true }),
+        axios.get("https://skill-sync-backend-beta.vercel.app/api/requests/mine", { withCredentials: true }),
+        axios.get("https://skill-sync-backend-beta.vercel.app/api/sessions/mine", { withCredentials: true }),
+        axios.get("https://skill-sync-backend-beta.vercel.app/api/mentors?limit=3", { withCredentials: true }),
+        axios.get("https://skill-sync-backend-beta.vercel.app/api/notifications", { withCredentials: true }),
       ]);
 
       const requests = reqRes.status === "fulfilled" ? (reqRes.value.data.requests || []) : [];

@@ -21,7 +21,7 @@ const AdminSkillRequests = () => {
         setLoading(true);
         try {
             const { data } = await axios.get(
-                "https://skill-sync-swart-phi.vercel.app/api/admin/requests",
+                "https://skill-sync-backend-beta.vercel.app/api/admin/requests",
                 { withCredentials: true }
             );
             setRequests(data.requests || []);
@@ -35,7 +35,7 @@ const AdminSkillRequests = () => {
     const removeRequest = async (id) => {
         if (!window.confirm("Are you sure you want to delete this request?")) return;
         try {
-            await axios.delete(`https://skill-sync-swart-phi.vercel.app/api/admin/requests/${id}`, {
+            await axios.delete(`https://skill-sync-backend-beta.vercel.app/api/admin/requests/${id}`, {
                 withCredentials: true,
             });
             setRequests((prev) => prev.filter((r) => r._id !== id));

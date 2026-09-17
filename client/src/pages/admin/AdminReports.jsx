@@ -20,7 +20,7 @@ const AdminReports = () => {
         setLoading(true);
         try {
             const res = await axios.get(
-                `https://skill-sync-swart-phi.vercel.app/api/admin/reports?period=${p}`,
+                `https://skill-sync-backend-beta.vercel.app/api/admin/reports?period=${p}`,
                 { withCredentials: true }
             );
             setData(res.data);
@@ -189,4 +189,5 @@ const AdminReports = () => {
     );
 };
 
-export default AdminReports;
+export default AdminReports;
+

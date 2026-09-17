@@ -20,7 +20,7 @@ import {
   RiLoader4Line,
 } from "react-icons/ri";
 
-const API = "https://skill-sync-swart-phi.vercel.app";
+const API = "https://skill-sync-backend-beta.vercel.app";
 
 const MentorProfile = () => {
   const navigate = useNavigate();

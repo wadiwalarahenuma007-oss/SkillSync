@@ -119,7 +119,7 @@ const Notifications = () => {
     setLoading(true);
     try {
       const res = await axios.get(
-        `https://skill-sync-swart-phi.vercel.app/api/notifications?role=${currentRole}`,
+        `https://skill-sync-backend-beta.vercel.app/api/notifications?role=${currentRole}`,
         { withCredentials: true }
       );
       setNotifications(res.data.notifications || []);
@@ -139,7 +139,7 @@ const Notifications = () => {
     setMenuOpen(false);
     try {
       await axios.put(
-        `https://skill-sync-swart-phi.vercel.app/api/notifications/read-all?role=${currentRole}`,
+        `https://skill-sync-backend-beta.vercel.app/api/notifications/read-all?role=${currentRole}`,
         {},
         { withCredentials: true }
       );
@@ -151,7 +151,7 @@ const Notifications = () => {
   const handleAction = async (n) => {
     try {
       await axios.put(
-        `https://skill-sync-swart-phi.vercel.app/api/notifications/${n._id}/read`,
+        `https://skill-sync-backend-beta.vercel.app/api/notifications/${n._id}/read`,
         {},
         { withCredentials: true }
       );
@@ -166,7 +166,7 @@ const Notifications = () => {
   const deleteNotif = async (id) => {
     try {
       await axios.delete(
-        `https://skill-sync-swart-phi.vercel.app/api/notifications/${id}`,
+        `https://skill-sync-backend-beta.vercel.app/api/notifications/${id}`,
         { withCredentials: true }
       );
       setNotifications((prev) => prev.filter(n => n._id !== id));

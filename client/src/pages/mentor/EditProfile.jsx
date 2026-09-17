@@ -26,7 +26,7 @@ const experienceLevels = [
   { value: "expert",       label: "Expert",       icon: "💎", sub: "7+ yrs"  },
 ];
 
-const API = "https://skill-sync-swart-phi.vercel.app";
+const API = "https://skill-sync-backend-beta.vercel.app";
 
 const MentorEditProfile = () => {
   const navigate  = useNavigate();

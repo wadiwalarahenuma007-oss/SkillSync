@@ -44,7 +44,7 @@ const Wallet = () => {
     const fetchData = async () => {
         setLoading(true);
         try {
-            const res = await axios.get("https://skill-sync-swart-phi.vercel.app/api/wallet/transactions", {
+            const res = await axios.get("https://skill-sync-backend-beta.vercel.app/api/wallet/transactions", {
                 withCredentials: true,
             });
             setTransactions(res.data.transactions || []);
