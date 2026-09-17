@@ -33,7 +33,7 @@ app.use(cookieParser());
 
 app.use(cors({
     // origin: "http://localhost:5173",
-    origin: "https://skillsync-lime.vercel.app",
+    origin: "https://skill-sync-s4ax.vercel.app",
     credentials: true,
 }));
 
