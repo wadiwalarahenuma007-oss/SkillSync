@@ -77,9 +77,7 @@ const StudentSidebar = ({ isOpen, onClose }) => {
         }
     };
 
-    const avatarUrl = user?.profilePicture
-        ? `https://skill-sync-backend-beta.vercel.app${user.profilePicture}`
-        : null;
+    const avatarUrl = user?.profilePicture || null;
     if (loading) {
         return null;
     }
