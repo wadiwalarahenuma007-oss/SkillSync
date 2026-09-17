@@ -152,7 +152,7 @@ const Profile = () => {
                     <div style={{ position: 'relative', flexShrink: 0 }}>
                         {profile.profilePicture ? (
                             <img
-                                src={`https://skill-sync-backend-beta.vercel.app${profile.profilePicture}`}
+                               src={profile.profilePicture}
                                 alt={profile.name}
                                 className="avatar"
                                 style={{
